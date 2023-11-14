@@ -1,0 +1,39 @@
+<div class="contenedor">
+  <nav class="navbar navbar-expand-xxl">
+      <div class="container-fluid">
+        <img src="assets/medico.png" style="cursor: pointer;" class="navbar-brand" width="2%" routerLink="/home">
+        <!-- <a class="navbar-brand" href="#">Expand at xxl</a> -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl" aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarsExampleXxl">
+          <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="/home">Home</a>
+            </li>
+            <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+              <a class="nav-link active" (click)="irHacia('usuarios')">Usuarios</a>
+            </li>
+            <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
+              <a class="nav-link active" (click)="irHacia('mis-turnos')">Mis Turnos</a>
+            </li>
+          </ul>
+          <button routerLink="/login" *ngIf="!user">LOGIN</button>
+          <button style="margin-left: 10px;" routerLink="/registro" *ngIf="!user">REGISTRO</button>
+          <button *ngIf="user">{{user.email.split("@")[0].toUpperCase()}}</button>
+          <button style="margin-left: 10px;" (click)="cerrarSesion()" *ngIf="user">LOGOUT</button>
+        </div>
+      </div>
+  </nav>
+
+  <div>
+    <div style="width: 90%;" *ngIf="user.perfil === 'paciente'">
+      <app-paciente [paciente]="user"></app-paciente>
+    </div>
+    
+    <div style="width: 90%;" *ngIf="user.perfil === 'especialista'">
+      <app-especialista></app-especialista>
+    </div>
+  </div>
+</div>

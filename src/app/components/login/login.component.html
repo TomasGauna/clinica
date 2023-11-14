@@ -1,0 +1,75 @@
+<div class="contenedor">
+    <div class="container-form row">
+        <!-- <h1>INICIAR SESION</h1> -->
+        <form class="contenedor-i col" [formGroup]="form">
+            <h1 class="py-3" style="text-shadow: 4px 4px 10px rgba(0, 0, 0, .5);">INICIAR SESION</h1>
+            <div class="col">
+                <img style="width: 30%; cursor: pointer;" src="assets/medico.png" routerLink="/home">
+            </div>
+            <div class="col py-4">
+                <div class="col py-2">
+                    <input [(ngModel)]="email" formControlName="email" class="col" type="text" placeholder="Ingrese su correo">
+                    <div class="row">
+                        <span class="col" *ngIf="form.controls['email'].touched && form.controls['email'].hasError('pattern')">
+                            Ingrese un correo válido.
+                        </span>
+                        <span class="col" *ngIf="form.controls['email'].touched && form.controls['email'].hasError('required')">
+                            El correo es requerido.
+                        </span>
+                    </div>
+                </div>
+                <div class="col py-2">
+                    <div class="col">
+                        <input [(ngModel)]="clave" formControlName="clave" class="col" type="password" placeholder="Ingrese su clave">
+                        <div class="row">
+                            <span class="col" *ngIf="form.controls['clave'].touched && form.controls['clave'].hasError('minlength')">
+                                La clave debe contener al menos 6 caracteres.
+                            </span>
+                            <span class="col" *ngIf="form.controls['clave'].touched && form.controls['clave'].hasError('required')">
+                                La clave es requerida.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+                <button id="btn" [disabled]="!form.valid" (click)="ingresar()">INGRESAR</button>
+            </div>
+            <div class="col py-2">
+                <label id="pregunta">¿Querés registrarte? <a href="/registro">Registrate</a></label>
+            </div>
+            <div class="contenedor-btn row py-5">
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/paciente_1.png" class="image-acceso">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/paciente_2.png" class="image-acceso">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/paciente_3.png" class="image-acceso">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/especialista_1.png" class="image-acceso">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/especialista_2.png" class="image-acceso">
+                    </button>
+                </div>
+                <div class="col-2">
+                    <button class="acceso">
+                        <img src="assets/accesos/admin.png" class="image-acceso">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

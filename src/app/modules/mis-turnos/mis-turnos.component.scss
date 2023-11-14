@@ -1,0 +1,50 @@
+.contenedor{
+    width: 100vw;
+    height: 100vh;
+    background-color: #94e1af;
+}
+
+.navbar{
+    background-color: #D8F3DC;
+    font-size: 20px;
+}
+
+
+button:hover{
+    background-color: #78d1b6;
+    transform: scale(1.05);
+    color: #fff;
+}
+
+button{
+    padding: .4%;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    background-color: #94e1af;
+    font-size: 18px;
+    border: 2px solid #94e1af;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);
+}
+
+button:active{
+    background-color: #537e62;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  a{
+    cursor: pointer;
+  }
