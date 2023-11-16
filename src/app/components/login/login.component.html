@@ -39,34 +39,10 @@
                 <label id="pregunta">¿Querés registrarte? <a href="/registro">Registrate</a></label>
             </div>
             <div class="contenedor-btn row py-5">
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/paciente_1.png" class="image-acceso">
-                    </button>
-                </div>
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/paciente_2.png" class="image-acceso">
-                    </button>
-                </div>
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/paciente_3.png" class="image-acceso">
-                    </button>
-                </div>
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/especialista_1.png" class="image-acceso">
-                    </button>
-                </div>
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/especialista_2.png" class="image-acceso">
-                    </button>
-                </div>
-                <div class="col-2">
-                    <button class="acceso">
-                        <img src="assets/accesos/admin.png" class="image-acceso">
+                <div class="col-2" *ngFor="let u of usuariosRapidos">
+                    <button class="acceso" (click)="email = u; clave = '123456'"  data-toggle="tooltip" data-placement="top" [title]="traerUser(u).perfil">
+                        <img *ngIf="traerUser(u)" [src]="traerUser(u).foto" class="image-acceso">
+                        <div *ngIf="!traerUser(u)" class="spinner-border" role="status"></div>
                     </button>
                 </div>
             </div>

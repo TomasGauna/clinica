@@ -164,14 +164,18 @@
                 <input id="fotosPaciente" accept="image/*, .jpg, .png, .jpeg" type="file" multiple>
                 <!-- <input type="file" id="fileInput" name="ft" accept="image/*" multiple class="form-control" value="" required> -->
             </div>
-            <!-- <div class="col" *ngIf="opcion === 2">
-                <input id="fotoPaciente2" type="file">
-            </div> -->
+        </div>
+        <div class="captcha py-2">
+            <re-captcha
+            formControlName="recaptcha" [siteKey]="'6Lc3KBEpAAAAAJM_4vwLHVnWq4JaNzo53aSL6R_8'"
+            (resolved)="captcha = true"
+            ></re-captcha>
         </div>
         <div class="contenedor-gral row py-4">
             <div class="col">
-                <button id="btn" [disabled]="!form.valid" (click)="registrarse()">REGISTRARSE</button>
+                <button id="btn" [disabled]="!form.valid || !captcha" (click)="registrarse()">REGISTRARSE</button>
             </div>
         </div>
     </form>
+    <!-- <ng-recaptcha [(ngModel)]="captchaResponse" name="recaptcha"></ng-recaptcha> -->
 </div>

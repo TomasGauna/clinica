@@ -12,11 +12,20 @@
           <li class="nav-item">
             <a class="nav-link active" href="/home">Home</a>
           </li>
-          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
-            <a class="nav-link active" (click)="irHacia('usuarios')">Usuarios</a>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item" [class.activo]="rutaActual === '/usuarios'">
+            <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
           </li>
           <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
-            <a class="nav-link active" (click)="irHacia('mis-turnos')">Mis Turnos</a>
+            <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
+          </li>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item" [class.activo]="rutaActual === '/turnos'">
+            <a class="nav-link active" routerLink="/turnos">Turnos</a>
+          </li>
+          <li *ngIf="estaEnArrayEmail(admins, user) || estaEnArrayEmail(pacientes, user)" class="nav-item">
+            <a class="nav-link active" routerLink="/solicitar-turnos">Solicitar Turno</a>
+          </li>
+          <li *ngIf="user" class="nav-item">
+            <a class="nav-link active" routerLink="/perfil">Mi Perfil</a>
           </li>
         </ul>
         <button routerLink="/login" *ngIf="!user">LOGIN</button>

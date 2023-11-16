@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,9 +15,11 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
-import { ListadoComponent } from './components/admin/listado/listado.component';
-import { PacienteComponent } from './components/mis-turnos/paciente/paciente.component';
-import { EspecialistaComponent } from './components/mis-turnos/especialista/especialista.component';
+import { TurnosComponent } from './components/turnos/turnos.component';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { SolicitarTurnoComponent } from './components/solicitar-turno/solicitar-turno.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,9 @@ import { EspecialistaComponent } from './components/mis-turnos/especialista/espe
     RegistroComponent,
     LoginComponent,
     ErrorComponent,
+    TurnosComponent,
+    SolicitarTurnoComponent,
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,11 +52,19 @@ import { EspecialistaComponent } from './components/mis-turnos/especialista/espe
     "messagingSenderId":"252489975231"})),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),///////////////
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    // RecaptchaV3Module,
   ],
   providers: [
     provideAnimations(),
-    provideToastr()
+    provideToastr(),
+/*     {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: '6Lc3KBEpAAAAAJM_4vwLHVnWq4JaNzo53aSL6R_8',//6Ld_IxEpAAAAAMmHBkVEMN0NZ5g4qCsT6OCLLYu3
+    }, */
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

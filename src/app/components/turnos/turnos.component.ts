@@ -1,44 +1,114 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
+import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
-  selector: 'app-especialista',
-  templateUrl: './especialista.component.html',
-  styleUrls: ['./especialista.component.scss']
+  selector: 'app-turnos',
+  templateUrl: './turnos.component.html',
+  styleUrls: ['./turnos.component.scss']
 })
-export class EspecialistaComponent 
-{
-  @Input() especialista:any;
+export class TurnosComponent {
+  user: any;
+  admins: any[] = [];
+  pacientes: any[] = [];
+  especialistas: any[] = [];
   turnos: any[] = [];
 
+  rutaActual: any;
   busqueda: string = '';
   comentario: string = '';
   turno: any;
   modal: boolean = false;
   fechaActual: Date = new Date();
   botones = true;
-  resenia = false;
   cancelar = false;
-  rechazar = false;
-  finalizar = false;
 
-  constructor(private firestore: Firestore, private toast: ToastrService)
+  constructor(private auth: AuthService,private toast: ToastrService, private firestore: Firestore, private router: Router)
   {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.rutaActual = event.url;
+      }
+    });
+
     FirestoreService.traerFs('turnos', this.firestore, 'fecha').subscribe((data)=>{
-      this.turnos = [];
-      data.forEach(t => {
-        if(t.especialista.dni === this.especialista.dni)
-        {
-          this.turnos.push(t);
-        }
-      });//////////////PODRIA HACERLO CON UN INPUT Y MANDARLE LA COLECCION QUE NECESITO
+      this.turnos = data;
     });
   }
 
   ngOnInit()
-  {}
+  {
+    FirestoreService.traerFs(('usuarios'), this.firestore).subscribe((data)=>{
+      data.forEach((u)=>{
+        if(u.perfil === 'administrador')
+        {
+          this.admins.push(u);
+        }
+        else
+        {
+          if(u.perfil === 'especialista')
+          {
+            this.especialistas.push(u);
+          }
+          else
+          {
+            this.pacientes.push(u);
+          }
+        }
+      });
+
+      let admin;
+
+      this.admins.forEach((a)=>{
+        if(this.auth.get_user()?.email === a.email)
+        {
+          admin = a;
+        }
+      })
+
+      if(this.auth.get_user()?.emailVerified || admin)
+      {
+        this.user = this.auth.get_user();
+      }
+      else
+      {
+        this.user = null;
+      }
+      console.log(this.user);
+    });
+  }
+
+  cerrarSesion()
+  {
+    this.toast.info('Cerrando sesion', "Espera...");
+    this.auth.logout()?.then(()=>{
+      setTimeout(() => {
+        this.toast.success('Cerraste sesion', "Todo normal");
+        this.router.navigateByUrl('home');
+        this.user = null;
+      }, 2000);
+    });
+  }
+
+  estaEnArrayEmail(array:any[], obj: any): boolean
+  {
+    let ret = false;
+
+    if(obj)
+    {
+      array.forEach((a:any) => {
+        if(a.email === obj.email)
+        {
+          ret = true;
+        }
+      });
+    }
+
+    return ret;
+  }
 
   obtenerColumnas(array: any): string[] 
   {
@@ -49,6 +119,7 @@ export class EspecialistaComponent
         if(element == 'especialista')
         {
           devuelve.push('especialidad');
+          devuelve.push('especialista');
         }
         else
         {
@@ -71,11 +142,7 @@ export class EspecialistaComponent
   closeModal() 
   {
     this.modal = false;
-    this.resenia = false;
-    this.turno = false;
     this.botones = true;
-    this.rechazar = false;
-    this.finalizar = false;
     this.cancelar = false;
   }
 
@@ -98,7 +165,7 @@ export class EspecialistaComponent
     }
 
     return this.turnos.filter(obj =>
-      obj['paciente'].apellido?.toString().toLowerCase().includes(letraBuscada) ||
+      obj['especialista'].apellido?.toString().toLowerCase().includes(letraBuscada) ||
       obj['especialista'].especialidad?.toString().toLowerCase().includes(letraBuscada)
     );
   }
@@ -109,73 +176,24 @@ export class EspecialistaComponent
 
     switch(accion)
     {
-      case 'can-rec':
+      case 'cancelar':
         if(this.fechaActual < this.construirFecha(turno.fecha) && turno.estado !== 'aceptado' && turno.estado !== 'realizado' && turno.estado !== 'rechazado' && turno.estado !== 'cancelado' && turno.estado !== 'finalizado')
         {
           retorno = true;
         }
       break;
-
-      case 'aceptar':
-        if(turno.estado === 'pendiente')
-        {
-          retorno = true;
-        }
-      break;
-
-      case 'finalizar':
-        if(turno.estado === 'aceptado')
-        {
-          retorno = true;
-        }
-      break;
-
-      case 'resenia':
-        if(turno.resenia != '')
-        {
-          retorno = true;
-        }
-      break;
     }
-    
+
     return retorno;
   }
-  
+
   cancelarTurno()
   {
     this.botones = false;
     this.cancelar = true;
   }
 
-  verResenia()
-  {
-    this.botones = false;
-    this.resenia = true;
-  }
-
-  rechazarTurno()
-  {
-    this.botones = false;
-    this.rechazar = true;
-  }
-
-  aceptarTurno(turno: any)
-  {
-    turno.estado = 'aceptado';
-    FirestoreService.actualizarFs('turnos', turno, this.firestore).then(()=>{
-      this.toast.info("Turno aceptado...");
-      this.closeModal();
-    });
-  }
-
-  finalizarTurno()
-  {
-    this.botones = false;
-    this.finalizar = true;
-  }
-
-
-  actualizar(turno:any, estado: string)
+  actualizar(turno: any, estado: string)
   {
     if(this.comentario != '')
     {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -16,9 +16,16 @@ export class MisTurnosComponent
   admins: any[] = [];
   pacientes: any[] = [];
   especialistas: any[] = [];
+  rutaActual:any;
 
   constructor(private auth: AuthService,private toast: ToastrService, private firestore: Firestore, private router: Router)
-  {}
+  {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.rutaActual = event.url;
+      }
+    });
+  }
 
   ngOnInit()
   {
@@ -80,38 +87,13 @@ export class MisTurnosComponent
     });
   }
 
-  irHacia(path: string)
-  {
-    let ret = false;
-
-    if(path === 'usuarios')
-    {
-      ret = this.estaEnArrayEmail(this.admins, this.user);
-    }
-    else
-    {
-      if(path === 'mis-turnos')
-      {
-        ret = this.estaEnArrayEmail(this.especialistas, this.user) || this.estaEnArrayEmail(this.pacientes, this.user);;
-      }
-    }
-
-    if(!ret)
-    {
-      this.toast.error("Acceso denegado");
-    }
-    else
-    {
-      this.router.navigate(['/'+path]);
-    }
-  }
-
   cerrarSesion()
   {
     this.toast.info('Cerrando sesion', "Espera...");
     this.auth.logout()?.then(()=>{
       setTimeout(() => {
         this.toast.success('Cerraste sesion', "Todo normal");
+        this.router.navigateByUrl('home');
         this.user = null;
       }, 2000);
     });

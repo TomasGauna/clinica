@@ -9,14 +9,23 @@
     
           <div class="collapse navbar-collapse" id="navbarsExampleXxl">
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
-              <li class="nav-item">
+              <li class="nav-item" [class.activo]="rutaActual === '/home'">
                 <a class="nav-link active" href="/home">Home</a>
               </li>
               <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
-                <a class="nav-link active" (click)="irHacia('usuarios')">Usuarios</a>
+                <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
               </li>
               <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
-                <a class="nav-link active" (click)="irHacia('mis-turnos')">Mis Turnos</a>
+                <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/turnos">Turnos</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(admins, user) || estaEnArrayEmail(pacientes, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/solicitar-turnos">Solicitar Turno</a>
+              </li>
+              <li *ngIf="user" class="nav-item">
+                <a class="nav-link active" routerLink="/perfil">Mi Perfil</a>
               </li>
             </ul>
             <button routerLink="/login" *ngIf="!user">LOGIN</button>
@@ -26,4 +35,10 @@
           </div>
         </div>
     </nav>
+    <div style="height: 90%; text-align: center;">
+      <h1 class="py-5">BIENVENIDX A "CLINICASCRIPT"</h1>
+      <p>
+        Somos la mejor clinica de autogestion
+      </p>
+    </div>
 </div>

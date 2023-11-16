@@ -20,6 +20,15 @@ export class LoginComponent
   pacientes: any[] = [];
   especialistas: any[] = [];
   administradores: any[] = [];
+  usuarios: any[] = [];
+  usuariosRapidos: any[] = [
+    "vipaf54245@ikanid.com", 
+    "fannoiffollesou-9950@yopmail.com",
+    "tuweunnuppoudu-9187@yopmail.com",
+    "xewunnubraza-2965@yopmail.com",
+    "atienzotomi@gmail.com",
+    "zekufrebraule-3628@yopmail.com"
+  ];
 
   observablePac:any;
   observableEsp: any;
@@ -36,19 +45,8 @@ export class LoginComponent
 
   ngOnInit()
   {
-/*     this.observablePac =  FirestoreService.traerFs('pacientes', this.firestore).subscribe((data)=>{
-      this.pacientes = data;
-    })
-
-    this.observableEsp = FirestoreService.traerFs('especialistas', this.firestore).subscribe((data)=>{
-      this.especialistas = data;
-    })
-
-    this.observableAdmins = FirestoreService.traerFs('administradores', this.firestore).subscribe((data)=>{
-      this.administradores = data;
-    }) */
-
     FirestoreService.traerFs('usuarios', this.firestore).subscribe((data)=>{
+      this.usuarios = data;
       data.forEach((u)=>{
         if(u.perfil === 'administrador')
         { 
@@ -223,5 +221,19 @@ export class LoginComponent
     setTimeout(()=>{
       this.router.navigate(['/home']);
     }, 1500); 
+  }
+
+  traerUser(correo: string)
+  {
+    let user:any = false;
+
+    this.usuarios.forEach((u)=>{
+      if(u.email === correo)
+      {
+        user = u;
+      }
+    });
+
+    return user;
   }
 }

@@ -13,10 +13,10 @@
               <a class="nav-link active" href="/home">Home</a>
             </li>
             <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
-              <a class="nav-link active" (click)="irHacia('usuarios')">Usuarios</a>
+              <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
             </li>
-            <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
-              <a class="nav-link active" (click)="irHacia('mis-turnos')">Mis Turnos</a>
+            <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item" [class.activo]="rutaActual === '/mis-turnos'">
+              <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
             </li>
           </ul>
           <button routerLink="/login" *ngIf="!user">LOGIN</button>
@@ -27,13 +27,13 @@
       </div>
   </nav>
 
-  <div>
-    <div style="width: 90%;" *ngIf="user.perfil === 'paciente'">
+  <div style="height: 90%;">
+    <div style="width: 100%; height: 100%;" *ngIf="user.perfil === 'paciente'">
       <app-paciente [paciente]="user"></app-paciente>
     </div>
     
-    <div style="width: 90%;" *ngIf="user.perfil === 'especialista'">
-      <app-especialista></app-especialista>
+    <div style="width: 100%; height: 100%;" *ngIf="user.perfil === 'especialista'">
+      <app-especialista [especialista]="user"></app-especialista>
     </div>
   </div>
 </div>

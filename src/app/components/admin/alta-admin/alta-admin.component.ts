@@ -66,8 +66,9 @@ export class AltaAdminComponent
         this.subirFoto(foto, nombre)?.then(()=>{
           const promesa = this.angularFirestorage.ref(nombre).getDownloadURL().toPromise();
             promesa.then((url2: any)=>{
-              FirestoreService.guardarFs(col, {...params, foto: url2}, this.firestore);
-              this.toast.success("Alta de administrador, realizada con exito.", "Perfecto!");
+              FirestoreService.guardarFs(col, {...params, foto: url2}, this.firestore).then(()=>{
+                this.toast.success("Alta de administrador, realizada con exito.", "Perfecto!");
+              });
               this.auth.updateUser(this.currentUser);
             });
         });

@@ -28,6 +28,7 @@ export class RegistroComponent
   clave: string = '';
   obraSocial: string = '';
   especialidad: string = '';
+  captcha = false;
 
   observable:any;
   paciente: boolean = false;///////////////////
@@ -52,6 +53,7 @@ export class RegistroComponent
         edad: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.min(1), Validators.max(99)]],
         email: ['', [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/), Validators.email]],
         clave: ['', [Validators.required, Validators.minLength(6)]],
+        recaptcha: ['', Validators.required],
         especialidad: ['', [this.letrasValidator()]],
         obraSocial: ['', [this.letrasValidator()]],
       }
@@ -62,12 +64,6 @@ export class RegistroComponent
   {
     
   }
-
-  ngOnDestroy()
-  {
-    //this.observable.unsubscribe();
-  }
-
   registrarse()
   {
     let ret = false;

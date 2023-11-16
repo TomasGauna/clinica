@@ -5,6 +5,7 @@ import { MisTurnosRoutingModule } from './mis-turnos-routing.module';
 import { MisTurnosComponent } from './mis-turnos.component';
 import { PacienteComponent } from 'src/app/components/mis-turnos/paciente/paciente.component';
 import { EspecialistaComponent } from 'src/app/components/mis-turnos/especialista/especialista.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EspecialistaComponent } from 'src/app/components/mis-turnos/especialist
   ],
   imports: [
     CommonModule,
-    MisTurnosRoutingModule
+    MisTurnosRoutingModule,
+    FormsModule
   ]
 })
 export class MisTurnosModule { }
