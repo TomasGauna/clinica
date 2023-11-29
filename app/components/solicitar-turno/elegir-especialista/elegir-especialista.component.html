@@ -1,0 +1,5 @@
+<div class="grid-container">
+    <button class="grid-item btn" *ngFor="let e of especialistas" (click)="enviarEspecialista(e)">
+        <img style="max-width: 100%;" src="{{e.foto}}">
+    </button> 
+</div>

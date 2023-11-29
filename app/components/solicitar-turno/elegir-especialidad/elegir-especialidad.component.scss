@@ -1,0 +1,38 @@
+.btn:hover{
+    background-color: #78d1b6;
+    transform: scale(1.05);
+    color: #fff;
+}
+
+.btn{
+    padding: .4%;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    background-color: #94e1af;
+    font-size: 18px;
+    border: 2px solid #94e1af;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);
+}
+
+.btn:active{
+    background-color: #537e62;
+}
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .grid-item {
+    flex: 0 0 calc(30% - 16px);
+    margin: 8px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 16px;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+  }

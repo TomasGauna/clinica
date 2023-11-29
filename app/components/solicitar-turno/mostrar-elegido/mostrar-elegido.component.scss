@@ -1,0 +1,15 @@
+.image-presentacion{
+    width: 50%;
+  }
+
+  .presentacion {
+    width: 100%;
+    height: 91.4vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF2B2;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, .5);
+  }

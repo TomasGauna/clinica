@@ -1,0 +1,18 @@
+.grid-item-dias {
+    flex: 0 0 calc(15% - 15px);
+    margin: 8px;
+    border: 1px solid #000000;
+    cursor: pointer;
+    padding: 16px;
+    box-sizing: border-box;
+    aspect-ratio: 1;
+    font-size: 20px;
+    background-color: #FFF2B2;
+  }
+
+  .grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+  }
