@@ -1,0 +1,30 @@
+{
+  "projects": {
+    "default": "clinica-cd258",
+    "clinica": "clinica-cd258"
+  },
+  "targets": {
+    "sala-de-juegos-6c2dd": {
+      "hosting": {
+        "TP": [
+          "sala-de-juegos-6c2dd"
+        ]
+      }
+    },
+    "clinica-cd258": {
+      "hosting": {
+        "TP": [
+          "clinica-cd258"
+        ]
+      }
+    },
+    "pp-labo-4c5ae": {
+      "hosting": {
+        "TP": [
+          "pp-labo-4c5ae"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

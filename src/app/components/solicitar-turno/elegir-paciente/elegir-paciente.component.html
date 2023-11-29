@@ -1,0 +1,6 @@
+<h2 style="width: 100%; text-align: center;">PACIENTES</h2>
+<div class="grid-container" style="width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center; flex-wrap: wrap;">
+    <button class="grid-item-horarios" *ngFor="let p of pacientes" (click)="enviarPaciente(p);">
+      {{p.apellido}}
+    </button>
+</div>

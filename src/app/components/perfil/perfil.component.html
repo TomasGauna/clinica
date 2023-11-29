@@ -1,0 +1,96 @@
+<div class="contenedor">
+    <nav class="navbar navbar-expand-xxl">
+        <div class="container-fluid">
+          <img src="assets/medico.png" style="cursor: pointer;" class="navbar-brand" width="2%" routerLink="/home">
+          <!-- <a class="navbar-brand" href="#">Expand at xxl</a> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl" aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarsExampleXxl">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+              <li class="nav-item" [class.activo]="rutaActual === '/home'">
+                <a class="nav-link active" href="/home">Home</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/turnos">Turnos</a>
+              </li>
+              <li *ngIf="estaEnArrayEmail(admins, user) || estaEnArrayEmail(pacientes, user)" class="nav-item">
+                <a class="nav-link active" routerLink="/solicitar-turnos">Solicitar Turno</a>
+              </li>
+            </ul>
+            <button class="btn" routerLink="/login" *ngIf="!user">LOGIN</button>
+            <button class="btn" style="margin-left: 10px;" routerLink="/registro" *ngIf="!user">REGISTRO</button>
+            
+            <button class="btn" style="cursor: pointer; margin-right: 10px; border-radius: 50%;" routerLink="/perfil" *ngIf="user">
+              <img width="30px" [src]="this.usuario.foto">
+            </button>
+            <button class="btn" routerLink="/perfil" *ngIf="user">{{user.email.split("@")[0].toUpperCase()}}</button>
+            <button class="btn" style="margin-left: 10px;" (click)="cerrarSesion()" *ngIf="user">LOGOUT</button>
+          </div>
+        </div>
+    </nav>
+
+    <div class="divGral py-5">
+      <div class="card col-6 py-5" style="width:400px; margin-right: 3rem; box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);">
+        <swiper-container navigation="true" pagination="true" loop="true" class="py-4">
+          <swiper-slide *ngIf="!estaEnArrayEmail(pacientes, user)">
+            <img [src]="usuario.foto">
+          </swiper-slide>  
+          <swiper-slide *ngIf="estaEnArrayEmail(pacientes, user)">
+            <img [src]="usuario.foto[0]">
+          </swiper-slide>
+          <swiper-slide *ngIf="estaEnArrayEmail(pacientes, user)">
+            <img [src]="usuario.foto[1]">
+          </swiper-slide>
+        </swiper-container>
+        <div class="card-body">
+          <h4 style="font-size: 30px;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h4>
+          <p style="font-size: 20px; width: 100%;" class="card-text">
+            <label>DNI: {{usuario.dni}}</label>
+            <br>
+            <label>Edad: {{usuario.edad}}</label>
+            <br *ngIf="estaEnArrayEmail(pacientes, user)">
+            <label *ngIf="estaEnArrayEmail(pacientes, user)">Obra social: {{usuario.obraSocial}}</label>
+            <br *ngIf="estaEnArrayEmail(especialistas, user)">
+            <label *ngIf="estaEnArrayEmail(especialistas, user)">Especialidades: {{usuario.especialidad}}</label>
+            <br>
+            <label>{{usuario.email}}</label>
+            <br>
+            <label>Perfil: {{usuario.perfil}}</label>
+          </p>
+        </div>
+    </div>
+
+  <div *ngIf="estaEnArrayEmail(especialistas, user)" class="horarios col-6">
+    <div class="card-body" style="text-align: center; font-size: 30px;">
+      <h4 style="font-size: 40px;" class="card-title py-3">Mis Horarios</h4>
+        <div *ngIf="especialidadMostrar == ''">
+          <div class="grid-container py-3">
+            <button style="width: 30%; height: 50px;" class="grid-item btn-grid" *ngFor="let e of usuario.especialidad" (click)="elegirEspecialidad(e)">
+              {{ e }}
+            </button>
+          </div>
+        </div>
+      <div *ngIf="especialidadMostrar != ''">
+        <div class="grid-container py-3">
+          <button style="width: 30%; height: 50px;" class="grid-item btn-grid" *ngFor="let dia of dias" (click)="elegirDia(dia)">
+            {{ dia }}
+          </button>
+        </div>
+          Dias elegidos: <input type="text" style="margin: 10px; border-radius: 5px; text-align: center;" readonly [(ngModel)]="diasInput">
+          Duracion del turno: <input type="text" style="width: 6%; margin: 10px; border-radius: 5px; text-align: center;" [(ngModel)]="duracion">
+          <div class="py-3" style="width: 100%; display: flex; justify-content: center; align-items: center;">
+            <button (click)="especialidadMostrar = ''" class="btn-grid" style="padding: 1%; margin-right: 10px;">Volver</button>
+            <button *ngIf="duracion != ''" (click)="guardarCambios()" class="btn-grid" style="padding: 1%">Guardar cambios</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

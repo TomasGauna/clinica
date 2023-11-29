@@ -1,0 +1,95 @@
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #74C69D;
+    //width: 100vw;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 1);
+}
+
+.perfil{
+    width: 8%;
+    margin-left: 10px;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li{
+    margin: 5px;
+    cursor: pointer;
+    width: 80%;
+}
+
+li:hover{
+    background-color: rgb(175, 174, 174);
+    transform: scale(1.05);
+}
+
+li:active{
+    background-color: rgb(208, 206, 206);
+}
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+    height: auto;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 1);
+  }
+  
+  .close {
+    position: absolute;
+    top: 1px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  /* Estilos de los botones */
+  .btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    width: auto;
+    background-color: #94e1af;
+    font-size: 18px;
+    border: 2px solid #94e1af;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);
+    margin-left: 5px;
+  }
+  
+  .btn:hover {
+    background-color: #78d1b6;
+    transform: scale(1.05);
+    color: #fff;
+  }
+
+  .btn:active{
+    background-color: #537e62;
+  }
