@@ -1,6 +1,0 @@
-<div class="grid-container">
-    <button class="grid-item btn" *ngFor="let eE of especialista.especialidad" (click)="enviarEspecialidad(eE)">
-      <img style="max-width: 100%;" [src]="getImagePath(quitarTildesYMinusculas(eE))" (error)="setDefaultImage($event)">
-      <label style="font-size: 30px;">{{eE}}</label>
-    </button>
-</div>

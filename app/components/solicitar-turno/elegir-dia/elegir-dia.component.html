@@ -1,8 +1,0 @@
-<div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
-    <h2 style="width: 100%; text-align: center;">DIAS DISPONIBLES</h2>
-    <div class="grid-container">
-        <button class="grid-item-dias" *ngFor="let dia of filtrarDiasPorEspecialidad()" (click)="enviarDia(dia)">
-            {{dia | mesCorregido}}
-        </button>
-    </div>
-</div>

@@ -1,6 +1,0 @@
-<div class="presentacion" style="gap: 20px;">
-    <h1>{{especialistaElegido.nombre}} {{especialistaElegido.apellido}}</h1>
-    <img class="image-presentacion" [src]="especialistaElegido.foto">
-    <h1>{{especialidadElegida}}</h1>
-    <img class="image-presentacion" [src]="getImagePath(quitarTildesYMinusculas(especialidadElegida))" (error)="setDefaultImage($event)">
-</div>
