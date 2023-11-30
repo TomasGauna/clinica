@@ -1,10 +1,7 @@
 <div class="contenedor">
-    <!-- <div *ngFor="let e of especialistas">
-        <label>{{e.nombre}} {{e.apellido}} - DNI: {{e.dni}}</label> <img class="perfil" [src]="e.foto">
-    </div> -->
-
+    <h1>LISTADO DE ESPECIALISTAS</h1>
     <ul class="list-group center" *ngFor="let e of especialistas">
-        <li class="list-group-item" (click)="mostrar(e)">{{e.nombre}} {{e.apellido}} DNI: {{e.dni}} ESTADO: {{e.aprobado === true ? 'APROBADO': e.aprobado === 'espera' ? 'ESPERA' : 'DENEGADO'}}<img class="perfil" [src]="e.foto"></li>
+        <li class="list-group-item" style="font-size: 20px;" (click)="mostrar(e)">{{e.nombre}} {{e.apellido}} DNI: {{e.dni}} ESTADO: {{e.aprobado === true ? 'APROBADO': e.aprobado === 'espera' ? 'ESPERA' : 'DENEGADO'}}<img class="perfil" [src]="e.foto"></li>
     </ul>
     <div *ngIf="mostrarModal" class="modal">
         <div class="modal-content">

@@ -15,6 +15,9 @@
             <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
               <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
             </li>
+            <li *ngIf="estaEnArrayEmail(especialistas, user)" class="nav-item">
+              <a class="nav-link active" routerLink="/pacientes">Pacientes</a>
+            </li>
             <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
               <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
             </li>

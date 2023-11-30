@@ -19,12 +19,8 @@ export class ElegirEspecialistaComponent
   ngOnInit()
   {
     this.observableEspecialista = FirestoreService.traerFs('usuarios', this.firestore).subscribe((data)=>{
-      data.forEach((u)=>{
-        if(u.perfil === 'especialista')
-        {
-          this.especialistas.push(u);
-        }
-      })
+      this.especialistas = data.filter((esp) => esp.perfil === 'especialista' && esp.aprobado);
+      //this.especialistas = this.especialistas.filter(esp => esp.aprobado)
     });
   }
 

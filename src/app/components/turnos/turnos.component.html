@@ -69,7 +69,7 @@
         <div class="modal-content-ventana">
             <span class="close" (click)="closeModal()">&times;</span>
             <h2 class="py-5" style="text-align: center;">ACCIONES DISPONIBLES PARA ESTE TURNO</h2>
-            <p class="py-2 turno">{{this.turno.id.substring(0, 5).toUpperCase()}} - {{this.turno.fecha}} - {{this.turno.especialista.especialidad}} - {{this.turno.paciente.apellido}} - {{this.turno.estado.toUpperCase()}}</p>
+            <p class="py-2 turno">{{this.turno.id.substring(0, 5).toUpperCase()}} - {{this.turno.fecha}} - {{this.turno.especialidad}} - {{this.turno.paciente.apellido}} - {{this.turno.estado.toUpperCase()}}</p>
             <div class="btns py-5" *ngIf="botones">
                 <button class="accion" *ngIf="evaluar(turno, 'cancelar')" (click)="cancelarTurno()">CANCELAR TURNO</button>
             </div>

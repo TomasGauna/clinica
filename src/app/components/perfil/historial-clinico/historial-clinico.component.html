@@ -1,0 +1,30 @@
+<div class="contenedor">
+    <div class="table-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th *ngFor="let columna of obtenerColumnas(paciente.historial_clinico)">{{columna.toUpperCase()}}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="table-contenedor" style="overflow: auto;">
+        <table>
+            <tbody style="overflow-y: auto;">
+                <tr *ngFor="let obj of paciente.historial_clinico" style="cursor: pointer;">
+                    <td *ngFor="let col of obtenerColumnas(paciente.historial_clinico)">
+                      {{obj[col]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="py-5 fab-container">
+        <app-especialista-fab
+        *ngFor="let especialista of especialistas" 
+        [especialista]="especialista"
+        (click)="armarPdf(especialista)"
+        ></app-especialista-fab>
+    </div>
+</div>

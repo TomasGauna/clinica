@@ -1,15 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import  firebase  from 'firebase/compat/app';
 import { environment } from 'src/environments/environment';
+import { ChildrenOutletContexts, Router } from '@angular/router';
+import { slideInAnimation } from './animaciones';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [ slideInAnimation ]
 })
 export class AppComponent {
   title = 'clinica';
+
+  constructor(private contexts: ChildrenOutletContexts){}
+
   ngOnInit(){
     firebase.initializeApp({"projectId":"clinica-cd258",
     "appId":"1:252489975231:web:7b94256a52773662cf4d0a",
@@ -19,7 +24,7 @@ export class AppComponent {
     "messagingSenderId":"252489975231"});
   }
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 }

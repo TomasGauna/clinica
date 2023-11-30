@@ -12,8 +12,8 @@
           <li class="nav-item" [class.activo]="rutaActual === '/home'">
             <a class="nav-link active" href="/home">Home</a>
           </li>
-          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
-            <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
+          <li *ngIf="estaEnArrayEmail(especialistas, user)" class="nav-item">
+            <a class="nav-link active" routerLink="/pacientes">Pacientes</a>
           </li>
           <li *ngIf="estaEnArrayEmail(pacientes, user) || estaEnArrayEmail(especialistas, user)" class="nav-item">
             <a class="nav-link active" routerLink="/mis-turnos">Mis Turnos</a>
@@ -23,6 +23,15 @@
           </li>
           <li *ngIf="estaEnArrayEmail(admins, user) || estaEnArrayEmail(pacientes, user)" class="nav-item">
             <a class="nav-link active" routerLink="/solicitar-turnos">Solicitar Turno</a>
+          </li>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+            <a class="nav-link active" routerLink="/usuarios">Usuarios</a>
+          </li>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+            <a class="nav-link active" routerLink="alta">Alta</a>
+          </li>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+            <a class="nav-link active" routerLink="listado">Especialistas</a>
           </li>
         </ul>
         <button routerLink="/login" *ngIf="!user">LOGIN</button>
@@ -37,13 +46,21 @@
     </div>
 </nav>
     <div class="row" style="width: 100%;">
-        <div class="col" style="margin: 10px; margin-left: 30px; height: 88vh;">
-            <app-alta-admin [currentUser]='user'></app-alta-admin>
+      <div *ngIf="mostrar" class="row" style="margin: 5px; height: 92.4vh; width: 100%;">
+        <app-historiales></app-historiales>   
+        <div class=" fab-container">
+          <app-paciente-boton 
+          *ngFor="let paciente of pacientes" 
+          [paciente]="paciente"
+          (click)="armarExcel(paciente)"
+          ></app-paciente-boton>
         </div>
-        <div class="col" style="margin: 10px; padding: auto; height: 88vh;">
-            <app-listado></app-listado>
-        </div>
+      </div>
+      <div *ngIf="!mostrar" class="col" style="margin: 10px; margin-left: 30px; height: 91.3vh;">
+        <router-outlet></router-outlet>    
+      </div>
+      <!-- <div *ngIf="mostrar" class="row" style="margin: 10px; padding: auto; height: 88vh;">
+        <app-listado></app-listado>
+      </div> -->
     </div>
 </div>
-<router-outlet></router-outlet>
-

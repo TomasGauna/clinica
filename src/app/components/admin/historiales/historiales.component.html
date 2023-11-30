@@ -1,0 +1,50 @@
+<div class="row contenedor">
+    <div class="row py-5">
+        <div class="table-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngFor="let columna of obtenerColumnas(pacientes)"> {{ (columna === "obraSocial" ? 'obra social' : columna).toUpperCase() }} </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-contenedor py-2" style="overflow: auto">
+            <table>
+                <tbody style="overflow-y: auto;">
+                    <tr *ngFor="let obj of pacientes" style="cursor: pointer;" (click)="pacienteElegido = obj">
+                        <td *ngFor="let col of obtenerColumnas(pacientes)">
+                            <ng-container *ngIf="col !== 'historial_clinico';">
+                            {{ obj[col] }}
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" *ngIf="pacienteElegido">
+        <div class="table-contenedor">
+            <table>
+                <thead>
+                    <tr>
+                        <th *ngFor="let columna of obtenerColumnas(pacienteElegido.historial)"> {{ columna.toUpperCase() }} </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="table-contenedor py-2" style="overflow: auto;">
+            <table>
+                <tbody style="overflow-y: auto;">
+                    <tr *ngFor="let obj of pacienteElegido.historial" style="cursor: pointer;">
+                        <td *ngFor="let col of obtenerColumnas(pacienteElegido.historial)">
+                            <ng-container>
+                                {{ obj[col] }}
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

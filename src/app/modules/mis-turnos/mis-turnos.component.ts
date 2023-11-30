@@ -85,6 +85,7 @@ export class MisTurnosComponent{
         if(p.email === this.auth.get_user()?.email)
         {
           paciente = p;
+          //document.write(JSON.stringify(paciente));
         }
       });
 

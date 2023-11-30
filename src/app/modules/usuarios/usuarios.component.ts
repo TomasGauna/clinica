@@ -3,7 +3,11 @@ import { Firestore } from '@angular/fire/firestore';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service'
+import * as FileSaver from 'file-saver';
+import * as XLSX from 'xlsx';
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-usuarios',
@@ -15,20 +19,38 @@ export class UsuariosComponent {
   admins: any[] = [];
   pacientes: any[] = [];
   especialistas: any[] = [];
+  turnos: any[] = [];
   rutaActual: any;
   foto: string = '';
+  mostrar: boolean = true;
 
   constructor(private auth: AuthService,private toast: ToastrService, private firestore: Firestore, private router: Router)
   {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.rutaActual = event.url;
+        this.actualizarMostrar();
       }
     });
+
+    if (this.router.url.includes('/alta') || this.router.url.includes('/listado')) 
+    {
+      this.mostrar = false;
+    }
+  }
+
+  private actualizarMostrar() {
+    this.mostrar = !this.rutaActual.includes('/alta') && !this.rutaActual.includes('/listado');
   }
 
   ngOnInit()
   {
+    this.actualizarMostrar();
+
+    FirestoreService.traerFs('turnos', this.firestore).subscribe((data)=>{
+      this.turnos = data;
+    });
+
     FirestoreService.traerFs(('usuarios'), this.firestore).subscribe((data)=>{
       data.forEach((u)=>{
         if(u.perfil === 'administrador')
@@ -101,5 +123,57 @@ export class UsuariosComponent {
     }
 
     return ret;
+  }
+
+  armarExcel(paciente: any)
+  {
+    let array: any[] = [];
+
+    this.turnos.forEach(turno => {
+      if(turno.paciente.dni === paciente.dni)
+      {
+        array.push({resenia: turno.resenia, comentario: turno.comentario, especialidad: turno.especialidad, estado: turno.estado, paciente: turno.paciente.apellido, especialista: turno.especialista.apellido, hora: turno.hora, fecha: turno.fecha});
+      }
+    });
+
+    this.ExportarExcel(array, `turnos_${paciente.dni}`);
+  }
+
+/*   ExportarExcel(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+    this.guardarExcel(excelBuffer, excelFileName);
+  } */
+
+  
+  ExportarExcel(json: any[], excelFileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+
+    const workbook: XLSX.WorkBook = {
+      Sheets: { data: worksheet },
+      SheetNames: ['data'],
+    };
+
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    this.guardarExcel(excelBuffer, excelFileName);
+  }
+
+  guardarExcel(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], { type: EXCEL_TYPE });
+    FileSaver.saveAs(
+      data,
+      fileName + '_' + new Date().getTime() + EXCEL_EXTENSION
+    );
   }
 }

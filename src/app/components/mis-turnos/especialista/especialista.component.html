@@ -48,7 +48,7 @@
             </div>
             <div class="textarea py-2" *ngIf="!botones && !resenia && finalizar">
                 <textarea [(ngModel)]="comentario" placeholder="Ingrese el diagnostico de la consulta y su reseña..."></textarea>
-                <button class="accion" (click)="actualizar(turno, 'finalizado')">ENVIAR</button>
+                <button class="accion" (click)="finalizarYActualizar(turno)">ENVIAR</button>
             </div>
             <div class="resenia py-4" *ngIf="!botones && resenia">
                 <span style="width: 90%;">{{turno.resenia}}</span>

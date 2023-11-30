@@ -64,18 +64,48 @@ export class PacienteComponent
   
     const resultadosFiltrados = [];
   
+    const buscarEnHistorial = (historial: any[]): boolean => {
+      for (const registro of historial) 
+      {
+        for (const key in registro) 
+        {
+          if (registro[key]?.toString().toLowerCase().includes(letraBuscada)) 
+          {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     for (const turno of this.turnos) {
       const especialidad = turno['especialidad'];
+      const paciente = turno['paciente'];
+      const comentario = turno['comentario'];
       const especialista = turno['especialista'];
+      const estado = turno['estado'];
+      const fecha = turno['fecha'];
+      const hora = turno['hora'];
+      const id = turno['id'];
+      const resenia = turno['resenia'];
   
       if (
         (especialidad && especialidad.toString().toLowerCase().includes(letraBuscada)) ||
-        (especialista && especialista.apellido?.toString().toLowerCase().includes(letraBuscada))
+        (paciente &&
+          (paciente.apellido?.toString().toLowerCase().includes(letraBuscada) ||
+            comentario?.toString().toLowerCase().includes(letraBuscada) ||
+            especialista.apellido?.toString().toLowerCase().includes(letraBuscada) ||
+            estado?.toString().toLowerCase().includes(letraBuscada) ||
+            fecha?.toString().toLowerCase().includes(letraBuscada) ||
+            hora?.toString().toLowerCase().includes(letraBuscada) ||
+            id?.toString().toLowerCase().includes(letraBuscada) ||
+            resenia?.toString().toLowerCase().includes(letraBuscada) ||
+            buscarEnHistorial(paciente.historial_clinico))
+        )
       ) {
         resultadosFiltrados.push(turno);
       }
     }
-  
     return resultadosFiltrados;
   }
 

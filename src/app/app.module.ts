@@ -9,7 +9,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { RegistroComponent } from './components/registro/registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -27,6 +27,11 @@ import { MostrarElegidoComponent } from './components/solicitar-turno/mostrar-el
 import { ElegirDiaComponent } from './components/solicitar-turno/elegir-dia/elegir-dia.component';
 import { ElegirHoraComponent } from './components/solicitar-turno/elegir-hora/elegir-hora.component';
 import { ElegirPacienteComponent } from './components/solicitar-turno/elegir-paciente/elegir-paciente.component';
+import { PacientesComponent } from './components/pacientes/pacientes.component';
+import { HistorialClinicoComponent } from './components/perfil/historial-clinico/historial-clinico.component';
+import { PacienteFabComponent } from './components/paciente-fab/paciente-fab.component';
+import { EspecialistaFabComponent } from './components/perfil/especialista-fab/especialista-fab.component';
+//import { PacienteFabComponent } from './modules/usuarios/paciente-fab/paciente-fab.component';
 register();
 
 @NgModule({
@@ -45,6 +50,10 @@ register();
     ElegirDiaComponent,
     ElegirHoraComponent,
     ElegirPacienteComponent,
+    PacientesComponent,
+    HistorialClinicoComponent,
+    PacienteFabComponent,
+    EspecialistaFabComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +78,7 @@ register();
     provideFirestore(() => getFirestore()),///////////////
     RecaptchaModule,
     RecaptchaFormsModule,
+    BrowserAnimationsModule,
     // RecaptchaV3Module,
   ],
   providers: [

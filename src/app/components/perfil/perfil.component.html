@@ -38,7 +38,7 @@
     </nav>
 
     <div class="divGral py-5">
-      <div class="card col-6 py-5" style="width:400px; margin-right: 3rem; box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);">
+      <div class="card col-6 py-5" style="width:500px; margin-right: 0px; box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);">
         <swiper-container navigation="true" pagination="true" loop="true" class="py-4">
           <swiper-slide *ngIf="!estaEnArrayEmail(pacientes, user)">
             <img [src]="usuario.foto">
@@ -67,7 +67,10 @@
           </p>
         </div>
     </div>
-
+    <div *ngIf="estaEnArrayEmail(pacientes, user)" class="col-6" style="width: 70%;">
+      <h1 style="width: 100%; text-align: center;" class="py-2">HISTORIAL CLINICO</h1>
+      <app-historial-clinico [paciente]="usuario"></app-historial-clinico>
+    </div>
   <div *ngIf="estaEnArrayEmail(especialistas, user)" class="horarios col-6">
     <div class="card-body" style="text-align: center; font-size: 30px;">
       <h4 style="font-size: 40px;" class="card-title py-3">Mis Horarios</h4>

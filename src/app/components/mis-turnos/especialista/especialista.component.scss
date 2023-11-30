@@ -8,6 +8,10 @@
     height: 100%;
 }
 
+.tamanio-custom {
+    width: 100vw !important; 
+}
+
 .input-contenedor{
     width: 100%;
     display: flex; 
@@ -107,9 +111,6 @@ tbody td:hover:before{
   ::-webkit-scrollbar-thumb:hover {
     background: #1c4231; 
   }
-
-
-
 
 
 

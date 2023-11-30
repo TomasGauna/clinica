@@ -6,13 +6,17 @@ import { UsuariosComponent } from './usuarios.component';
 import { AltaAdminComponent } from 'src/app/components/admin/alta-admin/alta-admin.component';
 import { ListadoComponent } from 'src/app/components/admin/listado/listado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HistorialesComponent } from 'src/app/components/admin/historiales/historiales.component';
+import { PacienteBotonComponent } from './paciente-boton/paciente-boton.component';
 
 
 @NgModule({
   declarations: [
     UsuariosComponent,
     AltaAdminComponent,
-    ListadoComponent
+    ListadoComponent,
+    HistorialesComponent,
+    PacienteBotonComponent,
   ],
   imports: [
     CommonModule,

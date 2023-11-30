@@ -15,7 +15,7 @@ import { User } from '@angular/fire/auth';
 })
 export class AltaAdminComponent 
 {
-  @Input() currentUser:any;
+  currentUser: any = this.auth.get_user();
   form:any;
 
   nombre: string = '';
@@ -55,7 +55,7 @@ export class AltaAdminComponent
   enviar()
   {
     let fotoInput:any = <HTMLInputElement>document.getElementById('foto');
-
+    console.warn("USUARIO ANTES: ", this.currentUser)
     if(fotoInput.files.length > 0)
     {
       this.auth.signup(this.email, this.clave).then(()=>{
@@ -68,8 +68,9 @@ export class AltaAdminComponent
             promesa.then((url2: any)=>{
               FirestoreService.guardarFs(col, {...params, foto: url2}, this.firestore).then(()=>{
                 this.toast.success("Alta de administrador, realizada con exito.", "Perfecto!");
+                console.warn("USUARIO despues de SINGUP: ", this.auth.get_user())
+                this.auth.updateUser(this.currentUser);
               });
-              this.auth.updateUser(this.currentUser);
             });
         });
       })
