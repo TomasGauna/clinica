@@ -33,14 +33,14 @@ export class UsuariosComponent {
       }
     });
 
-    if (this.router.url.includes('/alta') || this.router.url.includes('/listado')) 
+    if (this.router.url.includes('/alta') || this.router.url.includes('/listado') || this.router.url.includes('/estadisticas')) 
     {
       this.mostrar = false;
     }
   }
 
   private actualizarMostrar() {
-    this.mostrar = !this.rutaActual.includes('/alta') && !this.rutaActual.includes('/listado');
+    this.mostrar = !this.rutaActual.includes('/alta') && !this.rutaActual.includes('/listado') && !this.rutaActual.includes('/estadisticas');
   }
 
   ngOnInit()
@@ -125,32 +125,34 @@ export class UsuariosComponent {
     return ret;
   }
 
-  armarExcel(paciente: any)
+  armarExcel(paciente?: any)
   {
     let array: any[] = [];
+    let nombre = '';
 
-    this.turnos.forEach(turno => {
-      if(turno.paciente.dni === paciente.dni)
-      {
-        array.push({resenia: turno.resenia, comentario: turno.comentario, especialidad: turno.especialidad, estado: turno.estado, paciente: turno.paciente.apellido, especialista: turno.especialista.apellido, hora: turno.hora, fecha: turno.fecha});
-      }
-    });
+    if(paciente)
+    {
+      this.turnos.forEach(turno => {
+        if(turno.paciente.dni === paciente.dni)
+        {
+          array.push({resenia: turno.resenia, comentario: turno.comentario, especialidad: turno.especialidad, estado: turno.estado, paciente: turno.paciente.apellido, especialista: turno.especialista.apellido, hora: turno.hora, fecha: turno.fecha});
+        }
+      });
 
-    this.ExportarExcel(array, `turnos_${paciente.dni}`);
+      nombre = `turnos_${paciente.dni}`;
+    }
+    else
+    {
+      this.turnos.forEach(turno => {
+
+        array.push({paciente: turno.paciente.apellido, resenia: turno.resenia, comentario: turno.comentario, especialidad: turno.especialidad, estado: turno.estado,especialista: turno.especialista.apellido, hora: turno.hora, fecha: turno.fecha});
+        
+      });
+      nombre = `turnos_completos`;
+    }
+
+    this.ExportarExcel(array, nombre);
   }
-
-/*   ExportarExcel(json: any[], excelFileName: string): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = {
-      Sheets: { data: worksheet },
-      SheetNames: ['data'],
-    };
-    const excelBuffer: any = XLSX.write(workbook, {
-      bookType: 'xlsx',
-      type: 'array',
-    });
-    this.guardarExcel(excelBuffer, excelFileName);
-  } */
 
   
   ExportarExcel(json: any[], excelFileName: string): void {

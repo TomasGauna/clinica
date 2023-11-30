@@ -1,0 +1,67 @@
+<script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
+
+<div class="contenedor">
+    <h1>LOGS</h1>
+    <div class="table-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th appHoverColor *ngFor="let columna of obtenerColumnas(logs)">{{columna.toUpperCase()}}</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="table-contenedor" style="overflow: auto;">
+        <table>
+            <tbody style="overflow-y: auto;">
+                <tr *ngFor="let obj of logs" style="cursor: pointer;">
+                    <td *ngFor="let col of obtenerColumnas(logs)">
+                        {{(col === 'id' ? obj[col].substring(0, 5) : col === 'usuario' ? obj['usuario']['email'] : obj[col]).toUpperCase()}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="display: grid; place-items: center;" class="row">
+    <h1 appActiveColor style="width: 100%; text-align: center;">GRAFICOS</h1>
+    <div class="row">
+        <div class="divCanva divContenedor col">
+            <h1>CANTIDAD DE TURNOS POR ESPECIALIDAD</h1>
+            <canvas id="pie" width="400" height="400"></canvas>
+        </div>
+        <div class="divCanva divContenedor col">
+            <h1>CANTIDAD DE TURNOS POR DIA</h1>
+            <div>
+                <canvas id="bar" width="400" height="400" style="position: relative; bottom: 1%; margin: 5px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="divCanva divContenedor col">
+            <h1>CANTIDAD DE TURNOS POR MEDICO (EN {{lapso}} DIAS)</h1>
+            <div>
+              <canvas id="line" width="400" height="400" style="position: relative; bottom: 1%; margin: 5px;"></canvas>
+            </div>
+            <button (click)="lapso = 7; actualizarGrafico(calcularCantidadTurnosPorEspecialistaEnPeriodo(), 'line')">7 Dias</button>
+            <button (click)="lapso = 15; actualizarGrafico(calcularCantidadTurnosPorEspecialistaEnPeriodo(), 'line')">15 Dias</button>
+        </div> 
+        <div class="divCanva divContenedor col">
+            <h1>CANTIDAD DE TURNOS FINALIZADOS POR ESPECIALISTA (EN {{lapso2}} DIAS)</h1>
+            <canvas id="pie2" width="400" height="400"></canvas>
+            <button (click)="lapso2 = 7; actualizarGrafico(calcularCantidadTurnosPorEspecialistaEnPeriodoFinalizado(), 'pie')">7 Dias</button>
+            <button (click)="lapso2 = 15; actualizarGrafico(calcularCantidadTurnosPorEspecialistaEnPeriodoFinalizado(), 'pie')">15 Dias</button>
+        </div>
+    </div>
+</div>
+<!--<div class="divCanva divContenedor">
+  <h2 class="texto">Facilidad para realizar el pedido</h2>
+  <canvas id="dona" width="400" height="400" style="position: relative; bottom: 1%; margin: 5px;"></canvas>
+</div>
+<div class="divCanva divContenedor">
+  <h2 class="texto">Atención del personal</h2>
+  <div>
+    <canvas id="line" width="400" height="400" style="position: relative; bottom: 1%; margin: 5px;"></canvas>
+  </div>
+</div> -->

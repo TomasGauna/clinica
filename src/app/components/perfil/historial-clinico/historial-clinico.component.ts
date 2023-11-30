@@ -41,25 +41,41 @@ export class HistorialClinicoComponent {
     });
   }
 
-  armarPdf(especialista: any)
+  armarPdf(especialista?: any)
   {
     let array: any = [];
+    let nombre = '';
 
-    this.turnos.forEach((turno)=>{
-      if(turno.paciente.dni === this.paciente.dni && turno.especialista.dni === especialista.dni)
-      {
-        array.push(turno);
-      }
-    });
+    if(especialista)
+    {
+      this.turnos.forEach((turno)=>{
+        if(turno.paciente.dni === this.paciente.dni && turno.especialista.dni === especialista.dni)
+        {
+          array.push(turno);
+        }
+      });
 
-    this.descargarPDFTurnosPorDia(array, especialista);
+      nombre = `atenciones_${this.paciente.apellido}_${especialista.apellido}`;
+    }
+    else
+    {
+      this.turnos.forEach((turno)=>{
+        if(turno.paciente.dni === this.paciente.dni)
+        {
+          array.push(turno);
+        }
+      });
+
+      nombre = `atenciones_${this.paciente.apellido}`;
+    }
+
+    this.descargarPDFTurnosPorDia(array, '', nombre);
   }
 
-  descargarPDFTurnosPorDia(data: any, especialista: any) //`Atenciones de ${this.paciente.nombre} ${this.paciente.apellido} con el Dr. ${especialista.apellido}`
+  descargarPDFTurnosPorDia(data: any, especialista: any, nombreArchivo: string)
   {
     const logoPath = 'assets/medico.png';
 
-    // Cargar la imagen y convertirla a base64
     fetch(logoPath)
       .then(response => response.blob())
       .then(blob => {
@@ -70,7 +86,7 @@ export class HistorialClinicoComponent {
           const docDefinition: any = {
             content: [
               { image: logoBase64, width: 150, height: 150, alignment: 'center' },
-              { text: `Atenciones de ${this.paciente.nombre} ${this.paciente.apellido} con el Dr. ${especialista.apellido}`, alignment: 'center' },
+              { text: especialista ? `Atenciones de ${this.paciente.nombre} ${this.paciente.apellido} con el Dr. ${especialista.apellido}` : `Atenciones de ${this.paciente.nombre} ${this.paciente.apellido}`, alignment: 'center' },
               { text: `Fecha de Emisión: ${new Date().toLocaleDateString()}`, style: 'fecha', alignment: 'center' },
             ],
             styles: {
@@ -100,7 +116,7 @@ export class HistorialClinicoComponent {
           docDefinition.content = docDefinition.content.concat(turnoContent);
   
 
-          pdfMake.createPdf(docDefinition).download(`atenciones_${this.paciente.apellido}_${especialista.apellido}`);
+          pdfMake.createPdf(docDefinition).download(nombreArchivo);
         };
   
         reader.readAsDataURL(blob);

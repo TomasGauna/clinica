@@ -33,6 +33,9 @@
           <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
             <a class="nav-link active" routerLink="listado">Especialistas</a>
           </li>
+          <li *ngIf="estaEnArrayEmail(admins, user)" class="nav-item">
+            <a class="nav-link active" routerLink="estadisticas">Estadisticas</a>
+          </li>
         </ul>
         <button routerLink="/login" *ngIf="!user">LOGIN</button>
         <button style="margin-left: 10px;" routerLink="/registro" *ngIf="!user">REGISTRO</button>
@@ -54,6 +57,9 @@
           [paciente]="paciente"
           (click)="armarExcel(paciente)"
           ></app-paciente-boton>
+        </div>
+        <div class=" fab-container">
+          <button (click)="armarExcel()" style="height: 30%; text-align: center;">Descargar todos</button>
         </div>
       </div>
       <div *ngIf="!mostrar" class="col" style="margin: 10px; margin-left: 30px; height: 91.3vh;">

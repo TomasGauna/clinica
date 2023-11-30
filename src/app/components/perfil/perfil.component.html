@@ -41,13 +41,13 @@
       <div class="card col-6 py-5" style="width:500px; margin-right: 0px; box-shadow: 4px 4px 10px rgba(0, 0, 0, .5);">
         <swiper-container navigation="true" pagination="true" loop="true" class="py-4">
           <swiper-slide *ngIf="!estaEnArrayEmail(pacientes, user)">
-            <img [src]="usuario.foto">
+            <img [src]="usuario.foto" appImage>
           </swiper-slide>  
           <swiper-slide *ngIf="estaEnArrayEmail(pacientes, user)">
-            <img [src]="usuario.foto[0]">
+            <img [src]="usuario.foto[0]" appImage>
           </swiper-slide>
           <swiper-slide *ngIf="estaEnArrayEmail(pacientes, user)">
-            <img [src]="usuario.foto[1]">
+            <img [src]="usuario.foto[1]" appImage>
           </swiper-slide>
         </swiper-container>
         <div class="card-body">

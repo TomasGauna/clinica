@@ -254,12 +254,24 @@ export class EspecialistaComponent
         html:
           '<div style="width:100%; display:flex; flex-direction: column;">' +
             '<div class="swal2-input-container" style="display:flex; align-items: center; width:100%;">' +
-              '<input id="swal-altura" class="swal2-input" placeholder="*Altura (cm)" required>'+
-              '<input id="swal-peso" class="swal2-input" placeholder="*Peso (kg)" required>' +
+              '<div style="width:100%;">' +
+                '<label for="swal-altura">Altura:</label>'+
+                '<input id="swal-altura" class="swal2-input" placeholder="*Altura (cm)" required>'+
+              '</div>'+
+              '<div style="width:100%;">'+
+                '<label for="swal-peso">Peso:</label>'+
+                '<input id="swal-peso" class="swal2-input" placeholder="*Peso (kg)" required>' +
+              '</div>'+
             '</div>' +
             '<div class="swal2-input-container" style="display:flex; align-items: center; width:100%;">' +
-              '<input id="swal-temperatura" class="swal2-input" placeholder="*Temperatura" required>' +
-              '<input id="swal-presion" class="swal2-input" placeholder="*Presión(xx-xx)" required>' +
+              '<div style="width:100%;">' +
+                '<label for="swal-temperatura">Temper.:</label>'+
+                '<input id="swal-temperatura" class="swal2-input" placeholder="*Temperatura" required>' +
+              '</div>'+
+              '<div style="width:100%;">' +
+                '<label for="swal-presion">Presion:</label>'+
+                '<input id="swal-presion" class="swal2-input" placeholder="*Presión(xx-xx)" required>' +
+              '</div>'+
             '</div>' +
             '<div class="swal2-input-container" style="display:flex; align-items: center; width:100%;">' +
             '  <input id="swal-dato1" class="swal2-input" placeholder="*Dato 1">:' +
@@ -390,7 +402,7 @@ export class EspecialistaComponent
             jsonResult[opcional2] = valorOpcional2;
           }
 
-          jsonResult.fecha = 
+          jsonResult.fecha = turno.fecha;
           console.log(paciente);
           paciente.historial_clinico.push(jsonResult);
           turno.estado = 'finalizado';

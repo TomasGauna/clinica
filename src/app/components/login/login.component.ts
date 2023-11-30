@@ -109,6 +109,18 @@ export class LoginComponent
         }
         else
         {
+          const fechaActual = new Date();
+          const dia = fechaActual.getDate();
+          const mes = fechaActual.getMonth() + 1;
+          const anio = fechaActual.getFullYear();
+          const fechaFormateada = `${dia.toString().padStart(2, '0')}-${mes.toString().padStart(2, '0')}-${anio.toString()}`;
+
+          const horas = fechaActual.getHours();
+          const minutos = fechaActual.getMinutes();
+          const segundos = fechaActual.getSeconds();
+          const horaFormateada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+          FirestoreService.guardarFs('logs', {usuario: userPaciente, fecha: fechaFormateada, hora: horaFormateada}, this.firestore);
           this.mostrarMensajeIngreso();
         }
       }
@@ -125,6 +137,18 @@ export class LoginComponent
         {
           if(userEsp.aprobado === true && user.emailVerified)
           {
+            const fechaActual = new Date();
+            const dia = fechaActual.getDate();
+            const mes = fechaActual.getMonth() + 1;
+            const anio = fechaActual.getFullYear();
+            const fechaFormateada = `${dia.toString().padStart(2, '0')}-${mes.toString().padStart(2, '0')}-${anio.toString()}`;
+
+            const horas = fechaActual.getHours();
+            const minutos = fechaActual.getMinutes();
+            const segundos = fechaActual.getSeconds();
+            const horaFormateada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+
+            FirestoreService.guardarFs('logs', {usuario: userEsp, fecha: fechaFormateada, hora: horaFormateada}, this.firestore);
             this.mostrarMensajeIngreso();
           }
           else
@@ -171,6 +195,19 @@ export class LoginComponent
                 }
                 else
                 {
+                  const fechaActual = new Date();
+                  const dia = fechaActual.getDate();
+                  const mes = fechaActual.getMonth() + 1;
+                  const anio = fechaActual.getFullYear();
+                  const fechaFormateada = `${dia.toString().padStart(2, '0')}-${mes.toString().padStart(2, '0')}-${anio.toString()}`;
+      
+                  const horas = fechaActual.getHours();
+                  const minutos = fechaActual.getMinutes();
+                  const segundos = fechaActual.getSeconds();
+                  const horaFormateada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+        
+                  FirestoreService.guardarFs('logs', {usuario: userEsp, fecha: fechaFormateada, hora: horaFormateada}, this.firestore);
+        
                   this.mostrarMensajeIngreso();
                 }
               }
@@ -188,6 +225,19 @@ export class LoginComponent
 
           if(admin)
           {
+            const fechaActual = new Date();
+            const dia = fechaActual.getDate();
+            const mes = fechaActual.getMonth() + 1;
+            const anio = fechaActual.getFullYear();
+            const fechaFormateada = `${dia.toString().padStart(2, '0')}-${mes.toString().padStart(2, '0')}-${anio.toString()}`;
+
+            const horas = fechaActual.getHours();
+            const minutos = fechaActual.getMinutes();
+            const segundos = fechaActual.getSeconds();
+            const horaFormateada = `${horas.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
+  
+            FirestoreService.guardarFs('logs', {usuario: admin, fecha: fechaFormateada, hora: horaFormateada}, this.firestore);
+  
             this.mostrarMensajeIngreso();
           }
         }

@@ -1,7 +1,8 @@
 {
   "projects": {
     "default": "clinica-cd258",
-    "clinica": "clinica-cd258"
+    "clinica": "clinica-cd258",
+    "verdadera": "clinica-cd258"
   },
   "targets": {
     "sala-de-juegos-6c2dd": {

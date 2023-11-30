@@ -31,6 +31,10 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { HistorialClinicoComponent } from './components/perfil/historial-clinico/historial-clinico.component';
 import { PacienteFabComponent } from './components/paciente-fab/paciente-fab.component';
 import { EspecialistaFabComponent } from './components/perfil/especialista-fab/especialista-fab.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { HoverColorDirective } from './directivas/hover-color.directive';
+import { ActiveColorDirective } from './directivas/active-color.directive';
+import { ImageDirective } from './directivas/image.directive';
 //import { PacienteFabComponent } from './modules/usuarios/paciente-fab/paciente-fab.component';
 register();
 
@@ -54,6 +58,10 @@ register();
     HistorialClinicoComponent,
     PacienteFabComponent,
     EspecialistaFabComponent,
+    EstadisticasComponent,
+    HoverColorDirective,
+    ActiveColorDirective,
+    ImageDirective,
   ],
   imports: [
     BrowserModule,
